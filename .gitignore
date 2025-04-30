@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+*.venv
+env/
+ENV/
+*/venv/
+*/.venv
+*/env/
+*/ENV/
+
+# IDE / Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Log files
+*.log
+
+# Output directory (optional, uncomment if you don't want to track output)
+# separated_audio/
+# output_files/
+# */separated_audio/
+# */output_files/
+
+# Hugging Face cache (usually in ~/.cache/huggingface)
+# Add specific cache paths if needed and located within the project
+
+# Environment variables file (if used)
+.env

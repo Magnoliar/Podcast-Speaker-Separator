@@ -1,0 +1,17 @@
+# requirements.txt
+
+# PyTorch (CPU 或 GPU 版本，根据你的环境选择或让 pip 自动选择)
+# 建议用户根据其系统和 CUDA 版本安装合适的 PyTorch
+# 访问 https://pytorch.org/get-started/locally/ 获取具体命令
+# 例如: torch torchvision torchaudio
+torch
+torchaudio
+
+# pyannote.audio (核心库，使用最新版本)
+pyannote.audio>=3.1
+
+# numpy (通常作为依赖安装，显式列出以防万一)
+numpy
+
+# huggingface_hub (用于认证和模型下载)
+huggingface_hub

@@ -31,6 +31,33 @@
     *   **依赖模型:** [pyannote/embedding](https://huggingface.co/pyannote/embedding) (或模型依赖的其他嵌入模型)
     *   *注意：具体依赖可能随模型版本变化，如果遇到加载错误，请检查 Hugging Face 上的模型卡片和错误信息。*
 
+## 使用 Google Colab (无需本地安装)
+
+如果你不想在本地设置环境，可以直接在 Google Colab 中运行此项目，利用 Google 提供的免费 GPU 资源。
+
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1kY4jXzXvALmsTdYgGaDhzPovulid11Ks?usp=sharing)
+*(点击上方按钮直接在 Colab 中打开)*
+
+**在 Colab 中使用的步骤:**
+
+1.  **打开 Notebook:** 点击上面的 "Open In Colab" 按钮。
+2.  **设置运行时:**
+    *   在 Colab 菜单中，选择 "代码执行程序" (Runtime) -> "更改运行时类型" (Change runtime type)。
+    *   在 "硬件加速器" (Hardware accelerator) 下拉菜单中选择 "GPU" (推荐 T4 GPU)。点击 "保存"。
+3.  **运行单元格:** 按顺序执行 Notebook 中的代码单元格：
+    *   **安装依赖:** 运行第一个单元格来安装所有必需的库。
+    *   **Hugging Face 登录:** 运行第二个单元格。它会要求你登录 Hugging Face 账户（需要事先注册并接受模型使用条款，详见"环境要求"部分）。粘贴你的 Hugging Face Access Token。
+    *   **上传音频文件:** 运行第三个单元格，点击 "选择文件" 按钮上传你的播客音频文件 (推荐 `.wav` 格式)。
+    *   **定义处理函数:** 运行第四个单元格来定义核心的分离逻辑 (只需运行一次)。
+    *   **执行分离:** 运行第五个单元格开始处理你的音频文件。你可以在这里设置 `NUM_SPEAKERS` 变量（如果知道说话人数量）。处理过程可能需要一些时间，请耐心等待。
+    *   **下载结果:** 处理完成后，运行最后一个单元格。它会将输出目录中的所有分离文件打包成一个 `.zip` 文件，并自动触发浏览器下载。
+4.  **检查下载:** 在你的浏览器下载文件夹中查找名为 `separated_audio_colab.zip` (或类似名称) 的文件。解压后即可获得分离后的音频。
+
+**Colab 使用提示:**
+
+*   Colab 会话有时间限制，长时间不活动或总运行时长达到限制后，环境会被重置，上传的文件和安装的库会丢失。
+*   确保在运行需要 Token 的单元格之前，已经在 Hugging Face 网站上接受了 `pyannote/speaker-diarization-3.1` 等模型的使用条款。
+
 ## 安装与设置
 
 1.  **克隆仓库:**
@@ -119,33 +146,6 @@ python separate_speakers.py -i meeting.mp3 -o separated_meeting --token hf_YOUR_
 *   **准确性**: `pyannote.audio` 是一个强大的库，但在非常嘈杂的环境、说话人声音非常相似或语音重叠严重的情况下，分离结果可能不完美。
 *   **内存消耗**: 处理非常长的音频文件可能会消耗大量内存（尤其是 RAM 和 GPU 显存）。
 *   **音频格式**: 虽然脚本可能能处理 `ffmpeg` 支持的其他格式（如 MP3），但强烈建议将输入音频预先转换为 `.wav` 格式（例如，16kHz 单声道 PCM）以获得最佳效果和兼容性。
-
-## 使用 Google Colab (无需本地安装)
-
-如果你不想在本地设置环境，可以直接在 Google Colab 中运行此项目，利用 Google 提供的免费 GPU 资源。
-
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1kY4jXzXvALmsTdYgGaDhzPovulid11Ks?usp=sharing)
-*(点击上方按钮直接在 Colab 中打开)*
-
-**在 Colab 中使用的步骤:**
-
-1.  **打开 Notebook:** 点击上面的 "Open In Colab" 按钮。
-2.  **设置运行时:**
-    *   在 Colab 菜单中，选择 "代码执行程序" (Runtime) -> "更改运行时类型" (Change runtime type)。
-    *   在 "硬件加速器" (Hardware accelerator) 下拉菜单中选择 "GPU" (推荐 T4 GPU)。点击 "保存"。
-3.  **运行单元格:** 按顺序执行 Notebook 中的代码单元格：
-    *   **安装依赖:** 运行第一个单元格来安装所有必需的库。
-    *   **Hugging Face 登录:** 运行第二个单元格。它会要求你登录 Hugging Face 账户（需要事先注册并接受模型使用条款，详见"环境要求"部分）。粘贴你的 Hugging Face Access Token。
-    *   **上传音频文件:** 运行第三个单元格，点击 "选择文件" 按钮上传你的播客音频文件 (推荐 `.wav` 格式)。
-    *   **定义处理函数:** 运行第四个单元格来定义核心的分离逻辑 (只需运行一次)。
-    *   **执行分离:** 运行第五个单元格开始处理你的音频文件。你可以在这里设置 `NUM_SPEAKERS` 变量（如果知道说话人数量）。处理过程可能需要一些时间，请耐心等待。
-    *   **下载结果:** 处理完成后，运行最后一个单元格。它会将输出目录中的所有分离文件打包成一个 `.zip` 文件，并自动触发浏览器下载。
-4.  **检查下载:** 在你的浏览器下载文件夹中查找名为 `separated_audio_colab.zip` (或类似名称) 的文件。解压后即可获得分离后的音频。
-
-**Colab 使用提示:**
-
-*   Colab 会话有时间限制，长时间不活动或总运行时长达到限制后，环境会被重置，上传的文件和安装的库会丢失。
-*   确保在运行需要 Token 的单元格之前，已经在 Hugging Face 网站上接受了 `pyannote/speaker-diarization-3.1` 等模型的使用条款。
 
 ## 致谢
 
